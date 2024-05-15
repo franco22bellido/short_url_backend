@@ -5,7 +5,6 @@ export const getUrls = async (req, res) => {
     const urls = await Url.find({ user: req.user.userId }).populate('user', 
         {username: true, name: true}
     );
-    // const urls = await Url.find({})
     return res.json(urls)
 }
 export const getByShortUrl = async (req, res) => {

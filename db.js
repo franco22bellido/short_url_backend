@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
+import keys from './common/entorn.variable.js'
 
-const connection = mongoose.connect('mongodb://127.0.0.1:27017/short_url_express')
+const connection = mongoose.connect(keys.mongo_uri)
 .then(()=> {
     console.log("db is connected")
 })

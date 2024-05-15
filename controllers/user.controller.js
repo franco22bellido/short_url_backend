@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
 import User from '../models/user.mdel.js';
+import keys from '../common/entorn.variable.js';
 
 export const createUser = async (req, res) => {
     const { username, name, password } = req.body;
@@ -21,23 +22,23 @@ export const login = async (req, res) => {
     if (!userFound) return res.status(404).json({ message: "incorrect credentials" })
 
     const isValidPassword = await bcrypt.compare(password, userFound.passwordHash)
-    if(!isValidPassword) return res.status(404).json({message: "incorrect credentials"})
+    if (!isValidPassword) return res.status(404).json({ message: "incorrect credentials" })
 
-    const payload = {userId: userFound._id, username: userFound.username}
+    const payload = { userId: userFound._id, username: userFound.username }
 
-    const token = jwt.sign(payload, "secret", {expiresIn: "24h"})
+    const token = jwt.sign(payload, keys.jwt_secret, { expiresIn: "24h" })
 
-    res.cookie('token', token , {
+    res.cookie('token', token, {
         sameSite: "lax",
         secure: false
     })
 
     return res.status(200).json({
-        "message" : "login sussefully",
+        "message": "login sussefully",
         "token": token,
     })
 }
-export const getAllUsers = async (req, res)=> {
+export const getAllUsers = async (req, res) => {
     const users = await User.find({})
     return res.json(users)
 }
