@@ -10,7 +10,7 @@ import './db.js'
 config()
 
 const app = express();
-app.use(cors({credentials: true, origin : keys.front_origin}))
+app.use(cors({credentials: true}))
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(cookieParser())
