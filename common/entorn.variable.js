@@ -3,7 +3,7 @@ config()
 const keys = {
     jwt_secret: process.env.JWT_SECRET || 'secret_jwt',
     mongo_uri: process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/short_url_express',
-    port: process.env.port || 3001,
+    port: process.env.port,
     front_origin : process.env.FRONT_ORIGIN || 'http://192.168.0.7:5173'
 }
 
