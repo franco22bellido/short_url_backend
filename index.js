@@ -9,6 +9,7 @@ import cors from 'cors'
 import './db.js'
 config()
 
+console.log(keys)
 const app = express();
 app.use(cors({credentials: true, origin: [keys.front_origin]}))
 app.use(express.json())
