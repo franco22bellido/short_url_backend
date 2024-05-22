@@ -28,7 +28,7 @@ export const login = async (req, res) => {
 
     const token = jwt.sign(payload, keys.jwt_secret, { expiresIn: "24h" })
     res.cookie('token', token, {
-        sameSite: "Lax",
+        sameSite: "lax",
         secure: true,
         httpOnly: true
     })
