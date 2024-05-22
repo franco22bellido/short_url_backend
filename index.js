@@ -19,7 +19,6 @@ app.use(cookieParser())
 app.use('/url', validateToken, urlRoutes)
 app.use('/auth', userRoutes)
 
-
 app.listen(keys.port, () => {
     console.log(`SERVER ON PORT ${keys.port}`)
 })
