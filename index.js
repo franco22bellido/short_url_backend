@@ -18,7 +18,13 @@ app.use(cookieParser())
 
 app.use('/url', validateToken, urlRoutes)
 app.use('/auth', userRoutes)
-
+app.get('/', (req, res)=> {
+    res.cookie('token', token, {
+        sameSite: "Lax",
+        secure: true,
+        httpOnly: true
+    })
+})
 
 app.listen(keys.port, () => {
     console.log(`SERVER ON PORT ${keys.port}`)
