@@ -19,17 +19,18 @@ export const login = async (req, res) => {
     const { username, password } = req.body;
 
     const userFound = await User.findOne({ username }).lean()
-    if (!userFound) return res.status(404).json({ message: "incorrect credentials" })
+    if (!userFound) return res.status(401).json({ message: "incorrect credentials" })
 
     const isValidPassword = await bcrypt.compare(password, userFound.passwordHash)
-    if (!isValidPassword) return res.status(404).json({ message: "incorrect credentials" })
+    if (!isValidPassword) return res.status(401).json({ message: "incorrect credentials" })
 
     const payload = { userId: userFound._id, username: userFound.username }
 
     const token = jwt.sign(payload, keys.jwt_secret, { expiresIn: "24h" })
     res.cookie('token', token, {
-        sameSite: "none",
-        secure: true
+        sameSite: "lax",
+        secure: true,
+        httpOnly: true
     })
 
     return res.status(200).json({
