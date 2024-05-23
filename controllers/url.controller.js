@@ -9,10 +9,8 @@ export const getUrls = async (req, res) => {
 }
 export const getByShortUrl = async (req, res) => {
     const { shortUrl } = req.params;
-    const {userId} = req.user;
     try {
-        
-    let urlFound = await Url.findOne({ shortUrl, user: userId});
+    let urlFound = await Url.findOne({ shortUrl });
     if (!urlFound) return res.status(404).json({ message: "url not found" })
     urlFound.clicks = urlFound.clicks + 1;
     await urlFound.save()
